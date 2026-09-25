@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.authors = ["uproad"]
   spec.email = ["7349115+uproad@users.noreply.github.com"]
 
-  spec.summary = "TODO: Write a short summary, because RubyGems requires one."
-  spec.description = "TODO: Write a longer description or delete this line."
-  spec.homepage = "https://github.com/uproad/bareruby-stdlib"
+  spec.summary = "BareRuby Standard Library"
+  spec.description = ""
+  spec.homepage = "https://github.com/bareruby/bareruby-stdlib"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.2.0"
   spec.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
@@ -37,8 +37,7 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  # Uncomment to register a new dependency of your gem
-  # spec.add_dependency "example-gem", "~> 1.0"
+  spec.add_dependency "bareruby-compiler", "= 0.1.0"
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://guides.rubygems.org/make-your-own-gem/
