@@ -20,7 +20,7 @@ jobs:
 
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 4.0
+          ruby-version: "4.0"
 
       - name: Compare tag version with gemspec versions
         run: |
@@ -53,7 +53,7 @@ jobs:
 
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 4.0
+          ruby-version: "4.0"
 
       - name: bundle install
         run: bundle install
