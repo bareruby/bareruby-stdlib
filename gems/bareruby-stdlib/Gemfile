@@ -10,6 +10,3 @@ gem "irb"
 gem "rake"
 gem "rspec"
 gem "rubocop"
-
-local_bareruby_compiler = File.expand_path("../../../bareruby/gems/bareruby-compiler", __dir__)
-gem "bareruby-compiler", path: local_bareruby_compiler if Dir.exist?(local_bareruby_compiler)
