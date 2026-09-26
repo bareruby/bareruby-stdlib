@@ -1,0 +1,64 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  verify-version:
+    name: Verify tag and gemspec versions
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 4.0
+
+      - name: Compare tag version with gemspec versions
+        run: |
+          tag_version="${GITHUB_REF_NAME#v}"
+          status=0
+
+          stdlib_version=$(ruby -e 'puts Gem::Specification.load("gems/bareruby-stdlib/bareruby-stdlib.gemspec").version')
+          if [ "$stdlib_version" = "$tag_version" ]; then
+            echo "bareruby-stdlib.gemspec: $stdlib_version"
+          else
+            echo "::error file=gems/bareruby-stdlib/bareruby-stdlib.gemspec::version $stdlib_version does not match tag $GITHUB_REF_NAME"
+            status=1
+          fi
+
+          exit "$status"
+
+  bareruby-stdlib:
+    name: Release bareruby-stdlib
+    needs: verify-version
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 4.0
+
+      - name: bundle install
+        run: bundle install
+        working-directory: gems/bareruby-stdlib
+
+      - uses: rubygems/release-gem@v1
+        with:
+          working-directory: gems/bareruby-stdlib
